@@ -1,0 +1,37 @@
+/* src/styles/custom-fonts.scss */
+
+/* GalanoGrotesqueAlt - Light */
+@font-face {
+  font-family: "GalanoGrotesqueAlt";
+  src: url("/fonts/GalanoGrotesqueAltLight.otf") format("opentype");
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GalanoGrotesqueAlt - Medium */
+@font-face {
+  font-family: "GalanoGrotesqueAlt";
+  src: url("/fonts/GalanoGrotesqueAltMedium.otf") format("opentype");
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GalanoGrotesqueAlt - SemiBold */
+@font-face {
+  font-family: "GalanoGrotesqueAlt";
+  src: url("/fonts/GalanoGrotesqueAltSemiBold.otf") format("opentype");
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* GalanoGrotesqueAlt - Bold */
+@font-face {
+  font-family: "GalanoGrotesqueAlt";
+  src: url("/fonts/GalanoGrotesqueBold.otf") format("opentype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}

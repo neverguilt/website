@@ -1,0 +1,51 @@
+.bg-gradient {
+  @apply bg-gradient-to-b from-[rgba(249,249,249,1)] from-[0.53%] to-white to-[83.28%] dark:from-darkmode-theme-light dark:to-darkmode-body;
+}
+
+.rounded-sm {
+  @apply rounded-[4px];
+}
+.rounded {
+  @apply rounded-[6px];
+}
+.rounded-lg {
+  @apply rounded-[12px];
+}
+.rounded-xl {
+  @apply rounded-[16px];
+}
+
+.shadow {
+  box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
+}
+
+.custom-sheen {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    top: -50%;
+    content: "";
+    background: linear-gradient(
+      180deg,
+      hsla(64, 50%, 55%, 0),
+      hsla(73, 50%, 58%, 0.2) 50%,
+      hsla(59, 39%, 57%, 0)
+    );
+    transform: rotate(60deg) translate(-5em, 9em);
+    animation: sheen 3.5s 7s infinite;
+  }
+}
+
+@keyframes sheen {
+  20% {
+    transform: rotate(60deg) translate(1em, -9em);
+  }
+  100% {
+    transform: rotate(60deg) translate(1em, -9em);
+  }
+}
