@@ -1,14 +1,13 @@
 import { getListPage } from "@/lib/contentParser";
-import PageHeader from "@/partials/PageHeader";
-import ContactForm from "@/partials/ContactForm";
-import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
-
-const Contact = async () => {
+import SeoMeta from "@/partials/SeoMeta";
+import { PageHeader } from "@/components/PageHeader"
+import ContactForm from "@/partials/ContactForm";
+import Faq from "@/partials/Faq";
+const Contact = () => {
   const data: RegularPage = getListPage("contact/_index.md");
-  const { frontmatter } = data;
-  const { title, description, meta_title, image } = frontmatter;
-
+    const { frontmatter, content } = data;
+    const { title, meta_title, description, image } = frontmatter;
   return (
     <>
       <SeoMeta
@@ -17,9 +16,10 @@ const Contact = async () => {
         description={description}
         image={image}
       />
-      <PageHeader title={title} />
+      <PageHeader title="Contact Us" description="Have questions or need assistance? We're here to help." />
 
       <ContactForm />
+      <Faq />
     </>
   );
 };

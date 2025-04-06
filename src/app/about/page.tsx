@@ -1,13 +1,10 @@
-import ImageFallback from "@/helpers/ImageFallback";
-import MDXContent from "@/helpers/MDXContent";
 import { getListPage } from "@/lib/contentParser";
-import { markdownify } from "@/lib/utils/textConverter";
 import SeoMeta from "@/partials/SeoMeta";
-import Timeline from "@/partials/Timeline";
 import CallToAction from "@/partials/CallToAction";
-
-import Image from "next/image";
 import { RegularPage } from "@/types";
+import { PageHeader } from "@/components/PageHeader";
+import { Shield } from "lucide-react";
+import TeamSection from "@/components/TeamSection";
 
 const About = () => {
   const data: RegularPage = getListPage("about/_index.md");
@@ -22,47 +19,67 @@ const About = () => {
         description={description}
         image={image}
       />
-      <section className="section  pt-8">
-        {/* Background image */}
-        <div className="container">
-          <div className=" relative">
-            <div className="text-center ">
-              <div className="justify-center items-center flex relative ">
-                <div
-                  className="items-start inline-flex relative pointer-events-auto aos-init aos-animate"
-                  data-aos="fade-up"
-                >
-                  <Image
-                    className="opacity-70 max-w-full h-auto block align-middle"
-                    src="/images/works/works-2.webp"
-                    width="768"
-                    height="432"
-                    alt="About Never Guilt hero"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-secondary"
-                    aria-hidden="true"
-                  ></div>
-                </div>
-                <div
-                  className="absolute bottom-space_m pointer-events-auto aos-init aos-animate"
-                  data-aos="fade-down"
-                >
-                  <h1 className="text-text text-[2.5rem] md:text-[4rem] lg:text-[5.5rem] leading-[1.18] md:leading-[1.16] lg:leading-[1.11] font-black -tracking-[0.02em]">
-                    Established on <span className="text-primary">1999</span>
-                  </h1>
-                </div>
-                <div
-                  className="absolute bottom-0 -mb-[2rem] h-[4rem] w-[0.125rem] bg-primary"
-                  aria-hidden="true"
-                ></div>
+      <PageHeader title=" About NeverGuilt" description="Empowering individuals with legal clarity and supporting their journey toward new opportunities."/>
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-text mb-4">
+                Our Mission
+              </h2>
+              <p className="text-text_200 mb-6">
+                At NeverGuilt, we believe that everyone deserves a second chance. Our mission is to help individuals with court clearances verify their status and share that verification easily with potential employers and other stakeholders.
+              </p>
+              <p className="text-text_200 mb-6">
+                We provide a secure, reliable platform for verifying court clearance documents, ensuring that individuals can move forward with confidence and organizations can make informed decisions.
+              </p>
+              <div className="flex items-center space-x-2 text-primary font-medium">
+                <Shield className="h-5 w-5" />
+                <span>Trusted by thousands of individuals and organizations</span>
               </div>
+            </div>
+            <div className="bg-gray-100 p-8 rounded-lg">
+              <h3 className="text-xl font-semibold text-text mb-4">Our Values</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 bg-primary text-white p-1 rounded-full mr-3 mt-1">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h4 className="font-medium text-text pb-2">Integrity</h4>
+                    <p className="text-text_200">We operate with honesty and transparency in all our interactions.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 bg-primary text-white p-1 rounded-full mr-3 mt-1">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h4 className="font-medium text-text pb-2">Privacy</h4>
+                    <p className="text-text_200">We protect user data with robust security measures and respect confidentiality.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="flex-shrink-0 bg-primary text-white p-1 rounded-full mr-3 mt-1">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h4 className="font-medium text-text pb-2">Empowerment</h4>
+                    <p className="text-text_200">We believe in helping people move forward and rebuild their lives with dignity.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
-
-      <Timeline />
+      <TeamSection />
       <CallToAction />
     </>
   );

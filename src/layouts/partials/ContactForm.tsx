@@ -1,250 +1,183 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useUiContext } from "@/app/context/UiContext";
+import React,{ useState } from "react"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {  Mail, Phone, MapPin, Send } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
 import { sendGTMEvent } from "@next/third-parties/google";
 
-const url = process.env.NEXT_PUBLIC_API_URL || "https://ambicasteelworks.in";
 
-interface IContactFormState {
-  fullName: string;
-  mobileNumber: string;
-}
 
 const ContactForm: React.FC = () => {
-  const { dispatch } = useUiContext();
-  const [selectedProjectType, setSelectedProjectType] = useState<string>("");
-  // State for form input fields
-  const [formData, setFormData] = useState<IContactFormState>({
-    fullName: "",
-    mobileNumber: "",
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
   });
-  // service types and budget estimates defined as arrays of objects
-  const serviceTypes = [
-    { value: "Dimensional Letters", label: "Dimensional Letters" },
-    { value: "Illuminated Letters", label: "Illuminated Letters" },
-    { value: "Etched and Engraved", label: "Etched and Engraved" },
-    { value: "Logo Signs", label: "Logo Signs" },
-    { value: "Monument Signs", label: "Monument Signs" },
-    { value: "Other", label: "Other" },
-  ];
-
-  // Update state when project type or budget is selected
-  const handleProjectTypeSelect = (type: string) =>
-    setSelectedProjectType(type);
-
-  // Function to determine button style
-  const getButtonStyle = (value: string, selectedValue: string) => {
-    return value === selectedValue
-      ? "btn btn-form-select relative z-10 w-full overflow-hidden whitespace-nowrap border border-primary px-2 py-4 bg-primary text-white"
-      : "btn btn-form-select relative z-10 w-full overflow-hidden whitespace-nowrap border border-primary px-2 py-4";
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
-
-  // Handle input change
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  // Check if all required fields are filled
-  const isFormValid = () => {
-    return (
-      formData.fullName.trim() !== "" &&
-      formData.mobileNumber.trim() !== "" &&
-      selectedProjectType !== ""
-    );
-  };
-
-  // Handle form submission
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const response = await fetch(`${url}/api/submitform`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.fullName,
-          mobile: formData.mobileNumber,
-          selectedProjectType,
-        }),
-      });
-      // Handle Too Many Requests error here
-      // For example, show an error message to the user
-      if (response.status === 429) {
-        console.error("Too Many Requests: Please try again later");
-        dispatch({
-          type: "SET_ALERT",
-          payload: {
-            type: "error",
-            message: "Too Many Requests:try again in a min",
-          },
-        });
-      } else if (response.status === 400) {
-        dispatch({
-          type: "SET_ALERT",
-          payload: {
-            type: "info",
-            message: "Enter valid name and mobile number",
-          },
-        });
-        setFormData({
-          fullName: "",
-          mobileNumber: "",
-        });
-        sendGTMEvent({
-          event: "contactFormSubmittedFail",
-          category: "lead",
-          value: { errorMessage: "Validation error occurred" },
-        });
-        // Handle Bad Request error here
-        // For example, show an error message to the user
-      } else if (response.ok) {
-        const responseData = await response.json();
-        console.log("API Response:", responseData);
-        setSelectedProjectType("");
-        setFormData({
-          fullName: "",
-          mobileNumber: "",
-        });
-        // Handle successful API response here
-        // For example, show a success message to the user
-        dispatch({
-          type: "SET_ALERT",
-          payload: {
-            type: "success",
-            message: "Thanks, We'll reach out to you soon",
-          },
-        });
-        //successful gtm event sent
-        sendGTMEvent({
-          event: "contactFormSubmittedSuccess",
-          category: "lead",
-          value: {
-            name: formData.fullName,
-            mobile: formData.mobileNumber,
-            timestamp: new Date().toISOString(),
-          },
-          conversionValue: 300, // Assuming INR
-          currency: "INR", // Configure in GTM
-        });
-      } else {
-        // Handle errors
-        console.error("Error:", response.statusText);
-        // For example, show an error message to the user
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      // Handle errors
-      // For example, show an error message to the user
-      dispatch({
-        type: "SET_ALERT",
-        payload: {
-          type: "error",
-          message: "Server is busy, try again",
-        },
-      });
-      sendGTMEvent({
-        event: "contactFormSubmittedFail",
-        category: "lead",
-        value: { errorMessage: "Validation error occurred" },
-      });
-    }
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Display success message
+    toast({
+      title: "Message sent",
+      description: "Thank you for contacting us. We'll get back to you soon.",
+    });
+    
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    });
   };
   return (
-    <section className="section relative z-10 bg-gradient-to-b from-body to-secondary">
-      <div className="container">
-        <div className="row justify-center">
-          <div className="lg:col-10">
-            {/* service Type Section */}
-            <div className="row border-b border-primary pb-12">
-              <div className="mb-6 md:mb-0 md:col-4 lg:col-3">
-                <h3 className="  md:mt-4 ">Select Product Type</h3>
-              </div>
-              <div className=" md:col-8 lg:col-9 ">
-                <div className="row gap-y-4">
-                  {serviceTypes.map((type, index) => (
-                    <div key={index} className="sm:col-6 lg:col-4">
-                      <button
-                        value={type.value}
-                        onClick={() => handleProjectTypeSelect(type.value)}
-                        className={getButtonStyle(
-                          type.value,
-                          selectedProjectType,
-                        )}
-                      >
-                        <span
-                          data-text={type.label}
-                          className="pointer-events-none after:w-full"
-                        >
-                          <span>{type.label}</span>
-                        </span>
-                      </button>
-                    </div>
-                  ))}
+    <section className="py-16 bg-white">
+    <div className="container mx-auto px-4">
+      <div className="grid md:grid-cols-2 gap-12">
+        {/* Contact Information */}
+        <div>
+          <h2 className="text-2xl font-bold text-text mb-6">
+            Get in Touch
+          </h2>
+          <p className="text-text_200 mb-8">
+            Whether you have questions about our services, need technical support, or want to explore partnership opportunities, our team is ready to assist you.
+          </p>
+          
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-body p-3 rounded-full">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h5 className="font-medium text-text">Email</h5>
+                    <p className="text-text_200">support@neverguilt.com</p>
+                    <p className="text-text_200">info@neverguilt.com</p>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Contact Info Section */}
-            <div className=" row pt-12 ">
-              <div className="mb-6 md:mb-0 md:col-4 lg:col-3">
-                <h3 className=" has-bullet mt-2">Contact Info</h3>
-              </div>
-              <div className="md:col-8 lg:col-9">
-                <form onSubmit={handleSubmit} className="row pt-1">
-                  {/* Full Name Field */}
-                  <div className="relative mb-10 md:col-6">
-                    <input
-                      className="form-input w-full"
-                      type="text"
-                      id="full_name"
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    <label className="form-label left-3" htmlFor="full_name">
-                      Full Name *
-                    </label>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-body p-3 rounded-full">
+                    <Phone className="h-6 w-6 text-primary" />
                   </div>
-
-                  {/* mobile Field */}
-                  <div className="relative mb-10 md:col-6">
-                    <input
-                      className="form-input w-full"
-                      type="tel"
-                      id="mobile"
-                      name="mobileNumber"
-                      value={formData.mobileNumber}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    <label className="form-label left-3" htmlFor="mobile">
-                      Mobile *
-                    </label>
+                  <div>
+                    <h5 className="font-medium text-text">Phone</h5>
+                    <p className="text-text_200">+1 (555) 123-4567</p>
+                    <p className="text-text_200">Monday-Friday, 9AM-5PM EST</p>
                   </div>
-
-                  {/* Submit Button */}
-                  <div className="col-12 text-right">
-                    <button
-                      className="bg-primary  rounded-[70px] py-3 px-8  text-secondary"
-                      type="submit"
-                      disabled={!isFormValid()}
-                    >
-                      Submit
-                    </button>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-body p-3 rounded-full">
+                    <MapPin className="h-6 w-6 text-primary" />
                   </div>
-                </form>
-              </div>
-            </div>
+                  <div>
+                    <h5 className="font-medium text-text">Office</h5>
+                    <p className="text-text_200">123 Verification Street</p>
+                    <p className="text-text_200">Suite 456</p>
+                    <p className="text-text_200">New York, NY 10001</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
+        
+        {/* Contact Form */}
+        <div>
+          <h2 className="text-2xl font-bold text-text mb-6">
+            Send Us a Message
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                Your Name
+              </label>
+              <Input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="John Doe"
+                required
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address
+              </label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                required
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                Subject
+              </label>
+              <Input
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="How can we help you?"
+                required
+                className="w-full"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Please provide details about your inquiry..."
+                required
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              />
+            </div>
+            
+            <Button type="submit" className="bg-primary text-white w-full">
+              <Send className="mr-2 h-4 w-4" /> Send Message
+            </Button>
+          </form>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
 
