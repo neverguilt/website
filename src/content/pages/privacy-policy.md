@@ -8,7 +8,7 @@ description: "Our commitment to your privacy."
 
 _Last Updated: 3rd Jan 2024_
 
-Welcome to Ambica Ateel Works. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website ([regrowthhairstudio.in](https://regrowthhairstudio.in)) and tell you about your privacy rights and how the law protects you.
+Welcome to Ambica Ateel Works. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website ([neverguilt.com](https://neverguilt.com)) and tell you about your privacy rights and how the law protects you.
 
 ## 1. Important Information and Who We Are
 
@@ -25,7 +25,7 @@ Ambica Ateel Works is the controller and responsible for your personal data (col
 Our full details are:
 
 Full name of legal entity: Ambica Ateel Works  
-Email address: [info@regrowthhairstudio.in](mailto:info@regrowthhairstudio.in)  
+Email address: [info@neverguilt.com](mailto:info@neverguilt.com)  
 Postal address: Door no 46-6/1-15A/1, Park Street, Revenue Colony, Mogalrajpuram
 Telephone number: +91 6303259766
 
@@ -93,4 +93,4 @@ We keep our privacy policy under regular review. This version was last updated o
 
 ---
 
-For more information, please contact us at [info@regrowthhairstudio.in](mailto:info@regrowthhairstudio.in).
+For more information, please contact us at [info@neverguilt.com](mailto:info@neverguilt.com).

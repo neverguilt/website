@@ -124,7 +124,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                 <p className="text-red-500 text-center py-4">{error}</p>
               ) : noResults ? (
                 <p className="text-muted-foreground text-center py-4">
-                  No results found for "{query}"
+                  No results found for &quot;{query}&quot;
                 </p>
               ) : (
                 results.map((item) => (

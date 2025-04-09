@@ -1,5 +1,4 @@
 import React from "react";
-import ClientCarousel from "@/partials/ClientCarousel";
 
 function Clients() {
   return (
@@ -10,7 +9,6 @@ function Clients() {
             clients we worked with
           </h2>
           <div className="overflow-hidden bg-transparent">
-            <ClientCarousel />
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://regrowthhairstudio.in
+Host: https://neverguilt.com
 
 # Sitemaps
-Sitemap: https://regrowthhairstudio.in/sitemap.xml
+Sitemap: https://neverguilt.com/sitemap.xml

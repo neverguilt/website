@@ -64,7 +64,7 @@ function AudienceFor() {
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start">
                   <span className="text-primary mr-2">✓</span>
-                  <span className="text-text_200">Easily verify candidates' court clearance</span>
+                  <span className="text-text_200">Easily verify candidates court clearance</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">✓</span>
