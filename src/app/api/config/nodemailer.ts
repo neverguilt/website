@@ -1,6 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 
-const email: string = "contact@ambicasteelworks.in";
+const email: string = "contact@neverguilt.com";
 const pass: string = "Ambicasteelworks#1";
 
 const transporter: Transporter = nodemailer.createTransport({
