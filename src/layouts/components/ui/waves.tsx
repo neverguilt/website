@@ -322,9 +322,11 @@ export function Waves({
       updateMouse(e.pageX, e.pageY)
     }
     function onTouchMove(e: TouchEvent) {
-      e.preventDefault()
-      const touch = e.touches[0]
-      updateMouse(touch.clientX, touch.clientY)
+      // e.preventDefault(); // REMOVE THIS LINE
+      const touch = e.touches[0];
+      if (touch) { // Add a check in case touches array is empty
+        updateMouse(touch.clientX, touch.clientY);
+      }
     }
     function updateMouse(x: number, y: number) {
       const mouse = mouseRef.current
@@ -343,15 +345,14 @@ export function Waves({
     setSize()
     setLines()
     requestAnimationFrame(tick)
+    window.addEventListener("touchmove", onTouchMove, { passive: true } as AddEventListenerOptions);
     window.addEventListener("resize", onResize)
     window.addEventListener("mousemove", onMouseMove)
-    window.addEventListener("touchmove", onTouchMove, { passive: false })
 
     return () => {
       window.removeEventListener("resize", onResize)
       window.removeEventListener("mousemove", onMouseMove)
-      window.removeEventListener("touchmove", onTouchMove)
-    }
+      window.removeEventListener("touchmove", onTouchMove, { passive: true } as EventListenerOptions);    }
   }, [
     lineColor,
     backgroundColor,

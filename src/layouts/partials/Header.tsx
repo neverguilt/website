@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React from 'react'; // No need for useState/useEffect for this specific task
 import { Menu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +7,8 @@ import Link from 'next/link';
 import useWindow from "@/hooks/useWindow";
 
 import { usePathname } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+// Import SheetClose along with other Sheet components
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import ButtonComponent from '@/shortcodes/Button';
 import config from "@/config/config.json";
 
@@ -103,7 +104,7 @@ const Header: React.FC = () => {
               </div>
             </div>
             <div >
-              
+
               <ButtonComponent
                 label={authLinks.signup.text}
                 link={authLinks.signup.url}
@@ -121,6 +122,7 @@ const Header: React.FC = () => {
                 alt={logo.alt}
               />
             </Link>
+            {/* Let Sheet manage its own state */}
             <Sheet>
               <SheetTrigger asChild>
                 <button className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 p-2 text-gray-700 hover:bg-gray-50">
@@ -129,21 +131,26 @@ const Header: React.FC = () => {
               </SheetTrigger>
               <SheetContent>
                 <div className="flex flex-col space-y-4 mt-8">
+                  {/* Map through menu items */}
                   {menuItems.map((item) => (
-                    <Link
-                      key={item.title}
-                      href={item.url}
-                      className={`font-medium text-gray-700 hover:text-gray-900 ${getActiveLinkClass(item.url)}`}
-                    >
-                      {item.title}
-                    </Link>
+                    // Wrap each Link with SheetClose
+                    <SheetClose asChild key={item.title}>
+                      <Link
+                        href={item.url}
+                        className={`font-medium text-gray-700 hover:text-gray-900 ${getActiveLinkClass(item.url)}`}
+                      >
+                        {item.title}
+                      </Link>
+                    </SheetClose>
                   ))}
-                  <div className="flex  pt-4 mt-4 border-t">
-                    
-                    <ButtonComponent
-                      label={authLinks.signup.text}
-                      link={authLinks.signup.url}
-                    />
+                  <div className="flex pt-4 mt-4 border-t">
+                    {/* Wrap the ButtonComponent with SheetClose */}
+                    <SheetClose asChild>
+                      <ButtonComponent
+                        label={authLinks.signup.text}
+                        link={authLinks.signup.url}
+                      />
+                    </SheetClose>
                   </div>
                 </div>
               </SheetContent>

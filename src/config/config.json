@@ -4,8 +4,8 @@
     "base_url": "https://neverguilt.com",
     "base_path": "/",
     "trailing_slash": false,
-    "favicon": "/images/logo-small.png",
-    "logo": "/images/logo.png",
+    "favicon": "/images/neverguilt-logo.png",
+    "logo": "/images/neverguilt-logofull.png",
     "logo_darkmode": "/images/logo-darkmode.png",
     "logo_width": "400",
     "logo_height": "88",
@@ -14,7 +14,7 @@
   "nav": {
     "logo": {
       "url": "/",
-      "src": "/images/logo.png",
+      "src": "/images/neverguilt-logofull.png",
       "alt": "Never Guilt Logo",
       "title": "Never Guilt"
     },
