@@ -29,7 +29,7 @@ export function PageHeader({  title, description, className = "" }: PageHeaderPr
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
          
-          <h1 className="text-4xl font-bold text-neverguilt-dark mb-4">
+          <h1 className="text-4xl font-bold text-secondary mb-4">
             {title}
           </h1>
           {description && (
