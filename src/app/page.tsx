@@ -3,6 +3,7 @@ import CallToAction from "@/partials/CallToAction";
 import SeoMeta from "@/partials/SeoMeta";
 import Features from "@/components/Features";
 import AudienceFor from "@/components/AudienceFor";
+import {TextRevealByWord} from "@/components/text-reveal"
 
 
 const Home = () => {
@@ -17,8 +18,32 @@ const Home = () => {
 />
 
       <HeroSection />
+
+      {/* New Section 1: PUT YOUR WINS */}
+      <section className="py-12 md:py-16 bg-primary/30 text-white">
+        <div className="container mx-auto px-4 text-center ">
+        <TextRevealByWord
+          text="PUT YOUR WINS ON THE WORLD STAGE - Show the world you're UNSTOPPABLE"
+          className="bg-gradient-to-b from-white to-gray-50 rounded-md" // This styles TextRevealByWord's root
+        />
+        </div>
+      </section>
+
       <Features />
+      {/* New Section 2: Transparency and Trust */}
+      <section className="py-12 md:py-16 bg-primary/30 text-white">
+        <div className="container mx-auto px-4 text-center ">
+        <TextRevealByWord
+          text="When transparency wins, Trust Begins ONE PLATFORM. GLOBAL RECOGNITION"
+          className="bg-gradient-to-b from-white to-gray-50 rounded-md" // This styles TextRevealByWord's root
+        />
+        </div>
+      </section>
       <AudienceFor />
+
+      
+      
+
       <CallToAction />
     </>
   );

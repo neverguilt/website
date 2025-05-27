@@ -31,7 +31,7 @@ const About = () => {
                 At NeverGuilt, we believe that everyone deserves a second chance. Our mission is to help individuals with court clearances verify their status and share that verification easily with potential employers and other stakeholders.
               </p>
               <p className="text-text_200 mb-6">
-                We provide a secure, reliable platform for verifying court clearance documents, ensuring that individuals can move forward with confidence and organizations can make informed decisions.
+              Court clearance documents, academic Docs, technical certifications, and other supporting documents — empowering your progress in both career and life.
               </p>
               <div className="flex items-center space-x-2 text-primary font-medium">
                 <Shield className="h-5 w-5" />
